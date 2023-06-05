@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Home</title>
+</head>
+<body>
+    <div class="text-center m-5 ">
+        Hey, there folks welcome to this weather app . You can get the weather info of any place in the world by just entering the name of the place in the input box below.
+       </div>
+    <div class="m-5">
+        <form action="/cityinfo" method="post" class="flex flex-col justify-center">
+            <input type="text" name="city" id="city" placeholder="Enter place name" required class="text-center w-36 ml-auto mr-auto m-5 p-2">
+            <button type="submit" class="m-5 bg-purple-400 p-2 rounded-md ml-auto mr-auto">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

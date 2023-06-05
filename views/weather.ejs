@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Weather</title>
+  </head>
+  <body class="bg-blue-300 lg:bg-red-500">
+    <div class="m-4">
+      <form action="/cityinfo" method="post" autocomplete="on">
+        <div class="grid justify-center text-center p-3">
+          <input
+            type="text"
+            name="city"
+            id="city"
+            placeholder="Enter another place name"
+            required
+            class="text-center m-2 p-1 border-2 border-black text-blue-500 rounded-xl"
+          />
+          <button
+            type="submit"
+            class="bg-blue-500 w-20 ml-auto mr-auto p-2 rounded-md text-white"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="grid justify-center rounded-md">
+      <div class="text-center w-80 shadow-2xl bg-white rounded-sm p-3">
+        <div>
+            <h1 class="text-center text-blue-500 text-2xl font-bold">Today in</h1>
+          <h2 class="text-center text-blue-500 text-xl font-bold"><%= locals.name %></h2>
+          <p class="font-bold text-6xl text-blue-500 m-5 mb-2">
+            <%= locals.temp_cel %>°C
+          </p>
+        </div>
+        <div class="grid justify-center ">
+            <p class="text-blue-500 text-xl font-bold ">
+                <%= locals.weather_cond %>
+            </p>
+          <img
+            src="<%= locals.icon %>"
+            alt="weather icon"
+            class="w-20 h-20 "
+          />
+      </div>
+      <div id="next-days" >
+
+      </div>
+
+    </div>
+  </body>
+</html>
