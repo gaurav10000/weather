@@ -1,6 +1,7 @@
 import express from "express"
 import ejs from "ejs"
 import cookieParser from "cookie-parser";
+import fetch from "node-fetch";
 const app = express();
 
 // USING MIDDLEWARES
@@ -10,7 +11,8 @@ app.use(express.json())
 app.use(express.static("public"))
 
 app.post("/cityinfo", async(req, res)=>{
-    const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=1394c8f8681a496cb5c121423232705&q=${req.body.city}`)
+    // const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=1394c8f8681a496cb5c121423232705&q=${req.body.city}`)
+
     
     const data = await response.json()
     console.log(data)
