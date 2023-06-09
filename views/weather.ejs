@@ -19,12 +19,16 @@
             required
             class="text-center m-2 p-1 border-2 border-black text-blue-500 rounded-xl"
           />
+          <div id="suggestions" class="grid justify-center">
+
+          </div>
           <button
             type="submit"
             class="bg-blue-500 w-20 ml-auto mr-auto p-2 rounded-md text-white"
           >
             Submit
           </button>
+          
         </div>
       </form>
     </div>
@@ -53,5 +57,43 @@
       </div>
 
     </div>
+  
+    <script>
+      const input = document.getElementById("city");
+      let locations = [];
+      addEventListener("keydown", (e)=>{
+        fetch(
+          `http://api.weatherapi.com/v1/search.json?key=1394c8f8681a496cb5c121423232705&q=${input.value}`
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            locations = data;
+            console.log(locations);
+            let suggestions = document.getElementById("suggestions");
+            suggestions.innerHTML = "";
+            // locations.forEach((location) => {
+            //   suggestions.innerHTML += `<button id="btn${i++}" class="text-center w-32 m-1 p-2 border-2 border-black rounded-md">${location.name}</button>`
+            // });
+            for (let index = 0; index < locations.length; index++) {
+              const element = locations[index];
+              suggestions.innerHTML += `<button id="btn${index}" class="text-center w-32 m-1 p-2 border-2 border-black rounded-md">${element.name}</button>`
+            }
+
+            const buttons = document.getElementsByTagName("button");
+
+      const buttonPressed = e => {
+      // console.log(e.target.id);  // Get ID of Clicked Element
+      input.value = e.target.innerText;
+      
+      }
+
+      for (let button of buttons) {
+        button.addEventListener("click", buttonPressed);
+      }
+
+          });
+      });
+      
+    </script>
   </body>
 </html>

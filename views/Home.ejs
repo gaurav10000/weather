@@ -1,21 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Home</title>
-</head>
-<body>
-    <div class="text-center m-5 ">
-        Hey, there folks welcome to this weather app . You can get the weather info of any place in the world by just entering the name of the place in the input box below.
-       </div>
-    <div class="m-5">
-        <form action="/cityinfo" method="post" class="flex flex-col justify-center">
-            <input type="text" name="city" id="city" placeholder="Enter place name" required class="text-center w-36 ml-auto mr-auto m-5 p-2">
-            <button type="submit" class="m-5 bg-purple-400 p-2 rounded-md ml-auto mr-auto">Submit</button>
-        </form>
+  </head>
+  <body>
+    <div class="text-center m-5">
+      Hey, there folks welcome to this weather app . You can get the weather
+      info of any place in the world by just entering the name of the place in
+      the input box below.
     </div>
-</body>
+    <div class="m-5">
+      <form
+        action="/cityinfo"
+        method="post"
+        class="flex flex-col justify-center"
+      >
+        <input
+          type="text"
+          name="city"
+          id="city"
+          placeholder="Enter place name"
+          required
+          class="text-center w-36 ml-auto mr-auto m-5 p-2"
+        />
+        <div id="suggestions" class="grid justify-center">
+        </div>
+        <button
+          type="submit"
+          class="m-5 bg-purple-400 p-2 rounded-md ml-auto mr-auto"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+    <script>
+        const input = document.getElementById("city");
+        let locations = [];
+        addEventListener("keydown", (e)=>{
+          fetch(
+            `http://api.weatherapi.com/v1/search.json?key=1394c8f8681a496cb5c121423232705&q=${input.value}`
+          )
+            .then((res) => res.json())
+            .then((data) => {
+              locations = data;
+              console.log(locations);
+              let suggestions = document.getElementById("suggestions");
+              suggestions.innerHTML = "";
+              // locations.forEach((location) => {
+              //   suggestions.innerHTML += `<button id="btn${i++}" class="text-center w-32 m-1 p-2 border-2 border-black rounded-md">${location.name}</button>`
+              // });
+              for (let index = 0; index < locations.length; index++) {
+                const element = locations[index];
+                suggestions.innerHTML += `<button id="btn${index}" class="text-center w-32 m-1 p-2 border-2 border-black rounded-md">${element.name}</button>`
+              }
+  
+              const buttons = document.getElementsByTagName("button");
+  
+        const buttonPressed = e => {
+        // console.log(e.target.id);  // Get ID of Clicked Element
+        input.value = e.target.innerText;
+        
+        }
+  
+        for (let button of buttons) {
+          button.addEventListener("click", buttonPressed);
+        }
+  
+            });
+        });
+        
+      </script>
+  </body>
 </html>
